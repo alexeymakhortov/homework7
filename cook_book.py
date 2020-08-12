@@ -1,28 +1,33 @@
-# ЗАДАЧА 1
+#ЗАДАЧА 1
+from pprint import pprint
 
-with open("recipes.txt", mode='r', encoding='UTF-8') as file:
-    cook_book = {}
-    while True:
-        dish = file.readline().strip()  # название блюд
-        if not dish:
-            break
+def get_cook_book(file_name):
+    result = {}
+    with open(file_name, mode='r', encoding='UTF-8') as file:
+        while True:
+            dish = file.readline().strip()  # читаем название блюд
+            if not dish:
+                break
 
-        test_list = []
-        amount = int(file.readline().strip())  # количество ингредиентов
-        while amount > 0:
-            test_list.append(file.readline().strip().split(' | '))   # читаем ингредиенты
-            amount -= 1
+            test_list = []
+            amount = int(file.readline().strip())  # количество ингредиентов
+            while amount > 0:
+                test_list.append(file.readline().strip().split(' | '))  # читаем ингредиенты
+                amount -= 1
 
-        ingredients_dish = []
-        for line in test_list:
-            ingredients_dish.append({'ingredient_name': line[0], 'quantity': line[1], 'measure': line[2]})
+            ingredients_dish = []
+            for line in test_list:
+                ingredients_dish.append({'ingredient_name': line[0], 'quantity': line[1], 'measure': line[2]})
 
-        file.readline()   # читаем пустую строку
+            file.readline()  # читаем пустую строку
 
-        cook_book.setdefault(dish, ingredients_dish)
+            result.setdefault(dish, ingredients_dish)
+        return result
 
-print(cook_book)
+pprint(get_cook_book("recipes.txt"))
 
+############################################################
+############################################################
 
 # ЗАДАЧА 2
 
@@ -54,7 +59,16 @@ def get_shop_list_by_dishes(dishes, person_count = 1):
 # get_shop_list_by_dishes(['Омлет', 'Фахитос'], 2) # первый случай вывод
 # get_shop_list_by_dishes('Омлет', 773)            # второй случай вывод
 
-
+'''
+{
+  'Картофель': {'measure': 'кг', 'quantity': 2},
+  'Молоко': {'measure': 'мл', 'quantity': 200},
+  'Помидор': {'measure': 'шт', 'quantity': 4},
+  'Сыр гауда': {'measure': 'г', 'quantity': 200},
+  'Яйцо': {'measure': 'шт', 'quantity': 4},
+  'Чеснок': {'measure': 'зубч', 'quantity': 6}
+}
+'''
 
 
 
